@@ -46,6 +46,19 @@ public class UserFacadeREST extends AbstractFacade<User> {
     public void edit(@PathParam("id") Integer id, User entity) {
         super.edit(entity);
     }
+    @PUT
+    @Path("/updatepwd/{userId}/{new_pass}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public boolean updatepwd(@PathParam("userId") Integer id,@PathParam("new_Pass") String pass) {
+        User u = find(id);
+        u.setPassword(pass);
+        getEntityManager().merge(u);
+        super.edit(u);
+        // after udpdating the database check if it's ok retun true if yes and false if not
+        if(u.getPassword().equals(pass)){
+            return true;
+        }else{return false;}    
+    }
     
     @DELETE
     @Path("/remove/{id}")
@@ -53,7 +66,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
         super.remove(super.find(id));
     }
     
-     @GET
+    @GET
     @Path("/find/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public User find(@PathParam("id") Integer id) {
