@@ -1,5 +1,6 @@
 package ch.lab.unil.eventicketrestfulservice.service;
 
+import ch.lab.unil.eventicketrestfulservice.models.Event;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -24,6 +25,19 @@ public  abstract class AbstractFacade<T> {
 
     public void edit(T entity) {
         getEntityManager().merge(entity);
+    }
+    public void editqta(Event entity) {
+         int newqta = entity.getNbPlace() - 1;
+         entity.setNbPlace(newqta);
+         getEntityManager().merge(entity);
+         
+         /*in case the first method does't work
+                String sqlq = "UPDATE Event x SET x.nbplace = '"+newqta+"'" + " WHERE x.eventId =:eventId";
+                Query query = getEntityManager().createQuery(sqlq);
+                query.setParameter("eventId",entity.getEventId());
+                query.executeUpdate(); 
+        */
+       
     }
 
     public void remove(T entity) {

@@ -54,8 +54,15 @@ public class EventFacadeREST extends AbstractFacade<Event> {
         super.edit(entity);
     }
     
+    @PUT
+    @Path("/editqta/{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void editqta(@PathParam("id") Integer id, Event entity) {
+        super.editqta(entity);
+    }
+    
     @GET
-    @Path("/findById/{id}")
+    @Path("/find/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Event find(@PathParam("id") Integer id) {
         return super.find(id);
@@ -66,12 +73,12 @@ public class EventFacadeREST extends AbstractFacade<Event> {
     public Event findByName(@PathParam("name") String eventName) {
         return super.findByName("Event.findByEventName", "name", eventName);
     }
-    
+    /*
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Event> findAllEventWithLocation(@PathParam("loaction") String eventlocation) {
         return super.findAllEventWithLocation("Event.findByEventLocation","location",eventlocation);
     }
+    */
 
     @GET
     @Override

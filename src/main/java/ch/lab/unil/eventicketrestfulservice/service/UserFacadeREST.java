@@ -74,9 +74,19 @@ public class UserFacadeREST extends AbstractFacade<User> {
     }
 
     @GET
-    @Path("/findByName/{name}")
-    public User findByName(@PathParam("name") String userName) {
-        return super.findByName("User.findByUsername", "username", userName);
+    @Path("/findByName/{username}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public User findByName(@PathParam("username") String userName) {
+        /*
+       Query query = getEntityManager().createNamedQuery("User.findByUsername");
+        List<User> results = query.setParameter("username", userName).getResultList();
+        if(results.size() > 0) {
+            return results.get(0);
+        }else{
+            return null;
+        } 
+*/
+     return super.findByName("User.findByUsername", "username", userName);
     }
 
     @GET
